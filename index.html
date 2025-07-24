@@ -33,6 +33,7 @@
             font-family: 'Inter', sans-serif;
             color: var(--color-dark-gray);
             background-color: var(--color-light-gray);
+            /* Subtle background pattern for texture */
             background-image: radial-gradient(rgba(24, 119, 242, 0.1) 1px, transparent 1px);
             background-size: 40px 40px;
         }
@@ -47,12 +48,34 @@
         /* Hero Section Gradient Background */
         .hero-gradient-bg {
             background: linear-gradient(135deg, var(--color-primary-blue), var(--color-light-blue));
+            position: relative; /* Needed for absolute positioning of pattern */
+            overflow: hidden; /* Hide overflow from pattern */
         }
 
-        /* Glassmorphism Effect for Header and now Footer */
+        /* Hero Section Subtle Pattern */
+        .hero-gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 46v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0-20v-4H4v4H0v2h4v4h2v-4h4v-2H6zM36 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 10v-4H4v4H0v2h4v4h2v-4h4v-2H6zM26 46v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM26 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM56 16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM26 26v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM46 16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z"%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            opacity: 0.2; /* Subtle opacity for the pattern */
+            z-index: 0; /* Behind content */
+        }
+
+        /* Glassmorphism Effect for Header and Footer */
         .glassmorphism {
             backdrop-filter: blur(10px);
-            background-color: rgba(24, 119, 242, 0.7); /* Meta Blue with opacity */
+            background-color: rgba(24, 119, 242, 0.7); /* Primary Blue with opacity */
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Glassmorphism for Header on Scroll */
+        .glassmorphism.scrolled {
+            background-color: rgba(24, 119, 242, 0.9); /* More opaque on scroll */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Client Logo Carousel Animations */
@@ -101,23 +124,23 @@
         }
 
         .service-card-wrapper,
-        .contact-card-wrapper { /* Added for contact cards */
+        .contact-card-wrapper {
             height: 100%; /* Ensure wrappers fill grid cell height */
         }
 
         .service-card,
-        .contact-card { /* Unified styling for cards */
+        .contact-card {
             background-color: var(--color-white);
-            border-color: rgba(66, 165, 245, 0.3); /* light-blue with opacity */
-            color: var(--color-dark-gray); /* Ensure text color adapts */
+            border: 1px solid rgba(66, 165, 245, 0.2); /* light-blue with opacity */
+            color: var(--color-dark-gray);
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            height: 100%; /* Make card fill its wrapper */
-            display: flex; /* Use flexbox for content alignment */
-            flex-direction: column; /* Stack content vertically */
-            justify-content: space-between; /* Distribute space between items */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
         }
 
         .service-card.is-visible,
@@ -128,8 +151,9 @@
 
         .service-card:hover,
         .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(24, 119, 242, 0.15);
+            transform: translateY(-8px); /* Slightly less aggressive lift */
+            box-shadow: 0 15px 25px rgba(24, 119, 242, 0.2); /* More pronounced shadow on hover */
+            border-color: var(--color-primary-blue); /* Highlight border on hover */
         }
 
         /* Staggered delay for service cards - adjust as needed for new cards */
@@ -152,8 +176,8 @@
 
         /* Typography adjustments */
         p, .text-md {
-            font-size: 18px; /* Increased paragraph font size */
-            line-height: 1.7; /* Improved line height */
+            font-size: 1.125rem; /* Equivalent to text-lg in Tailwind */
+            line-height: 1.7;
         }
 
         h1, h2, h3, h4 {
@@ -169,15 +193,16 @@
             color: var(--color-white);
             padding: 12px 15px;
             border-radius: 50%;
-            display: none; /* Hidden by default */
+            display: none;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             z-index: 1000;
         }
 
         #back-to-top:hover {
             background-color: var(--color-dark-blue);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
         /* Mobile specific adjustments for footer */
@@ -206,46 +231,52 @@
         /* Mobile specific adjustments for logo carousel images */
         @media (max-width: 767px) {
             .logo-item {
-                flex-shrink: 0; /* Prevent items from shrinking too much */
-                width: 50%; /* Make each logo item take up half the screen width */
-                padding: 1.5rem; /* Add more padding for touch targets */
+                flex-shrink: 0;
+                width: 50%;
+                padding: 1rem; /* Adjusted padding */
             }
             .logo-item img {
-                height: 10rem; /* Increased height for better visibility on mobile */
-                width: auto; /* Allow width to adjust based on height to maintain aspect ratio */
-                max-width: 100%; /* Ensure image doesn't overflow its container */
+                height: 6rem; /* Adjusted height for mobile */
+                width: auto;
+                max-width: 100%;
             }
-            /* Adjust animation speed for potentially fewer visible items at once */
             .animate-scroll-left, .animate-scroll-right {
-                animation-duration: 25s; /* Slightly faster for less content */
+                animation-duration: 25s;
             }
         }
         
         /* Section headers */
         .section-header {
             position: relative;
-            display: block;
-            margin-bottom:0 auto 3rem auto;
+            display: block; /* Changed to inline-block for centering underline */
+            margin: 0 auto 3rem auto; /* Centered margin */
             text-align: center;
+            padding-bottom: 15px; /* Space for the underline */
         }
         
         .section-header:after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0; /* Position at the bottom of the element */
             left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
+            transform: translateX(-50%) scaleX(0); /* Initially hidden */
+            width: 100%; /* Full width of the text */
+            max-width: 180px; /* Max width for the underline */
             height: 4px;
             background: linear-gradient(90deg, var(--color-primary-blue), var(--color-light-blue));
             border-radius: 2px;
+            transition: transform 0.4s ease-out; /* Animation for underline */
+        }
+
+        .section-header.is-visible:after {
+            transform: translateX(-50%) scaleX(1); /* Reveal underline */
         }
         
         /* Animation for apply button */
         .apply-button {
             position: relative;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.3s ease-in-out;
         }
         
         .apply-button:after {
@@ -257,17 +288,22 @@
             height: 200%;
             background: rgba(255, 255, 255, 0.3);
             transform: rotate(25deg);
-            transition: all 0.5s;
+            transition: all 0.5s ease;
         }
         
         .apply-button:hover:after {
             left: 120%;
         }
+
+        .apply-button:hover {
+            transform: scale(1.08); /* Slightly larger scale on hover */
+            box-shadow: 0 8px 15px rgba(24, 119, 242, 0.3); /* More pronounced shadow */
+        }
         
         /* Pulse animation */
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); } /* Reduced pulse intensity */
             100% { transform: scale(1); }
         }
         
@@ -282,23 +318,24 @@
         }
         
         .text-shine {
-            background: linear-gradient(90deg, #FFFFFF, #42A5F5, #FFFFFF);
+            background: linear-gradient(90deg, #FFFFFF, var(--color-light-blue), #FFFFFF);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textShine 2s linear infinite;
+            animation: textShine 3s linear infinite; /* Slower animation */
         }
         
         /* Floating animation */
         @keyframes floating {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); } /* Slightly more movement */
             100% { transform: translateY(0px); }
         }
         
         .floating {
-            animation: floating 3s ease-in-out infinite;
+            animation: floating 4s ease-in-out infinite; /* Slower and smoother */
+            opacity: 0.15; /* More subtle */
         }
     </style>
 </head>
@@ -306,11 +343,10 @@
 
     <!-- Header/Navigation -->
     <header id="header" class="glassmorphism fixed top-0 w-full z-50 shadow-lg" role="banner">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center" aria-label="Main Navigation">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center relative" aria-label="Main Navigation">
             <!-- Company Logo -->
             <a href="#" class="text-white text-2xl font-extrabold tracking-wide flex items-center" aria-label="PV Technology Home">
-                <!-- Replaced local image with placeholder for better preview -->
-                <img src="images/pvtech_logo.jpg" alt="PV Technology Logo" class="h-10 w-auto mr-2">
+                <img src="images/pvtech_logo.jpg" alt="PV Technology Logo" class="h-10 w-auto mr-2 rounded-full border border-white">
                 <span class="hidden sm:inline-block">PV Technology</span>
             </a>
 
@@ -325,14 +361,14 @@
 
             <!-- Mobile Hamburger Menu -->
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile navigation menu">
+                <button id="mobile-menu-button" class="text-white focus:outline-none p-2 rounded-md hover:bg-dark-blue transition-colors" aria-label="Open mobile navigation menu">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </nav>
 
         <!-- Mobile Navigation Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-blue py-4">
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-blue py-4 border-t border-primary-blue border-opacity-30">
             <ul class="flex flex-col items-center space-y-4" role="menubar">
                 <li role="none"><a href="#about" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">About</a></li>
                 <li role="none"><a href="#services" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Internships</a></li>
@@ -347,7 +383,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero-gradient-bg min-h-screen flex items-center justify-center text-center text-white p-4 relative" role="region" aria-labelledby="hero-heading">
             <div class="max-w-4xl mx-auto fade-in-section relative z-10">
-                <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 md:p-12 inline-block mb-8">
+                <div class="bg-white bg-opacity-15 backdrop-blur-md rounded-2xl p-8 md:p-12 inline-block mb-8 border border-white border-opacity-30 shadow-xl">
                     <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-2 text-shine">PV Technology</h1>
                     <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
                         Inspire. Innovate. Integrate.
@@ -362,12 +398,14 @@
             </div>
             
             <!-- Floating elements -->
-            <div class="floating absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-white bg-opacity-20"></div>
-            <div class="floating absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-white bg-opacity-20" style="animation-delay: 0.5s;"></div>
-            <div class="floating absolute bottom-1/4 left-1/3 w-20 h-20 rounded-full bg-white bg-opacity-20" style="animation-delay: 1s;"></div>
+            <div class="floating absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-white bg-opacity-20" style="animation-delay: 0s;"></div>
+            <div class="floating absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-white bg-opacity-20" style="animation-delay: 1s;"></div>
+            <div class="floating absolute bottom-1/4 left-1/3 w-20 h-20 rounded-full bg-white bg-opacity-20" style="animation-delay: 2s;"></div>
+            <div class="floating absolute top-1/2 left-1/12 w-12 h-12 rounded-full bg-white bg-opacity-20" style="animation-delay: 3s;"></div>
+            <div class="floating absolute bottom-1/5 right-1/5 w-18 h-18 rounded-full bg-white bg-opacity-20" style="animation-delay: 4s;"></div>
             
-            <!-- Lottie Animation Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+            <!-- Lottie Animation Placeholder - more subtle -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tijg9q9v.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
             </div>
         </section>
@@ -413,7 +451,7 @@
                                     Learn to collect, process, and perform statistical analysis on large datasets.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Data Analysis Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Data Analysis Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Devops -->
@@ -428,7 +466,7 @@
                                     Streamline software development and operations for faster, more reliable deployments.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for DevOps Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for DevOps Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Cloud Computing -->
@@ -443,7 +481,7 @@
                                     Learn to deploy and manage applications on leading cloud platforms like AWS, Azure, and GCP.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Cloud Computing Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Cloud Computing Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Full Stack Development -->
@@ -458,7 +496,7 @@
                                     Master both front-end and back-end technologies to build complete web applications.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Full Stack Development Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Full Stack Development Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Cyber Security -->
@@ -473,7 +511,7 @@
                                     Protect digital systems and data from cyber threats, ensuring robust security.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Cyber Security Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Cyber Security Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Artificial Intelligence and Machine Learning -->
@@ -488,7 +526,7 @@
                                     Develop intelligent systems and algorithms for data analysis and predictive modeling.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for AI/ML Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for AI/ML Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -511,7 +549,7 @@
                                     Explore the design, operation, and applications of unmanned aerial vehicles.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Drone Technologies Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Drone Technologies Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Industrial Internet of Things (IIoT) -->
@@ -526,7 +564,7 @@
                                     Connect and manage industrial devices for enhanced automation and data collection.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for IIoT Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for IIoT Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Automation and Robotics -->
@@ -541,7 +579,7 @@
                                     Design and implement automated systems and robotic solutions for various industries.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- E-Mobility -->
@@ -556,7 +594,7 @@
                                     Focus on electric vehicle technologies, charging infrastructure, and sustainable transport.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -579,7 +617,7 @@
                                     Learn sustainable practices for waste collection, processing, and disposal.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Solid Waste Management Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Solid Waste Management Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Wastewater Management -->
@@ -594,7 +632,7 @@
                                     Study treatment processes and systems for effective wastewater disposal and reuse.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Wastewater Management Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Wastewater Management Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -617,7 +655,7 @@
                                     Explore the integration of heating systems with robotic applications.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Heating and Robotics Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Heating and Robotics Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Advance Ventilation and Air Conditioning (HVAC) -->
@@ -632,7 +670,7 @@
                                     Delve into advanced systems for heating, ventilation, and air conditioning.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for HVAC Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for HVAC Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Automation and Robotics -->
@@ -647,7 +685,7 @@
                                     Gain expertise in designing, building, and maintaining automated systems and robots.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- E-Mobility -->
@@ -662,7 +700,7 @@
                                     Delve into the mechanics and systems of electric vehicles and their infrastructure.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -685,7 +723,7 @@
                                     Design and implement control systems for industrial processes.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Industrial Automation Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Industrial Automation Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Power Engg -->
@@ -700,7 +738,7 @@
                                     Focus on the generation, transmission, and distribution of electrical power.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Power Engineering Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Power Engineering Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Renewable Energy -->
@@ -715,7 +753,7 @@
                                     Explore sustainable energy sources like solar, wind, and hydro power.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Renewable Energy Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Renewable Energy Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Electric Utility Engg -->
@@ -730,7 +768,7 @@
                                     Learn about the infrastructure and operations of electric power systems.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Electric Utility Engineering Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Electric Utility Engineering Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -753,7 +791,7 @@
                                     Study the design, operation, and maintenance of agricultural machinery.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Farm Machinery Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Farm Machinery Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Construction and Earthmoving Equipment -->
@@ -768,7 +806,7 @@
                                     Learn about heavy machinery used in construction and earthmoving.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Construction Equipment Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Construction Equipment Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Automation and Robotics (Automobile) -->
@@ -783,7 +821,7 @@
                                     Focus on automated systems and robotics within the automotive industry.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
                         </div>
                     </div>
                     <!-- Electric and Hybrid Vehicle Technology -->
@@ -798,7 +836,7 @@
                                     Explore the design, battery systems, and infrastructure of electric and hybrid vehicles.
                                 </p>
                             </div>
-                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Electric and Hybrid Vehicle Technology Internship">Apply Now</a>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue hover:scale-105 transition-all duration-300 apply-button" aria-label="Apply for Electric and Hybrid Vehicle Technology Internship">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -813,8 +851,7 @@
                     <!-- Row 1: Scrolling Left -->
                     <div class="flex whitespace-nowrap animate-scroll-left">
                         <div class="flex items-center justify-around w-full flex-shrink-0">
-                            <!-- Replaced local images with placeholders for better preview -->
-                            <div class="logo-item p-4"><img src="images/Biogen.png" alt="Client Logo A" class="h-48 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Biogen.png" alt="Client Logo A" class="h-24 w-full object-contain max-h-full"></div>
                             <div class="logo-item p-4"><img src="images/Emmvee.jpg" alt="Client Logo B" class="h-24 w-full object-contain max-h-full"></div>
                             <div class="logo-item p-4"><img src="images/tata_ele.png" alt="Client Logo C" class="h-24 w-full object-contain max-h-full"></div>
                             <div class="logo-item p-4"><img src="images/TataPower-Logo.jpg" alt="Client Logo D" class="h-24 w-full object-contain max-h-full"></div>
@@ -863,7 +900,6 @@
                     <!-- Row 1: Scrolling Left -->
                     <div class="flex whitespace-nowrap animate-scroll-left">
                         <div class="flex items-center justify-around w-full flex-shrink-0">
-                            <!-- Replaced local images with placeholders for better preview -->
                             <div class="logo-item p-4"><img src="images/picb8.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
                             <div class="logo-item p-4"><img src="images/picb9.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
                             <div class="logo-item p-4"><img src="images/picb10.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
@@ -992,22 +1028,21 @@
     <footer class="glassmorphism text-white py-6 text-sm" role="contentinfo">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0">
-                <!-- Replaced local image with placeholder for better preview -->
-                <img src="images/pvtech_logo.jpg" alt="PV Technology Logo" class="h-10 w-auto inline-block mr-3">
+                <img src="images/pvtech_logo.jpg" alt="PV Technology Logo" class="h-10 w-auto inline-block mr-3 rounded-full border border-white">
                 <span class="text-xl font-bold">PV Technology</span>
             </div>
             
             <div class="flex space-x-6 mb-4 md:mb-0">
-                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300" aria-label="Visit us on Facebook">
                     <i class="fab fa-facebook-f text-xl"></i>
                 </a>
-                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300" aria-label="Visit us on LinkedIn">
                     <i class="fab fa-linkedin-in text-xl"></i>
                 </a>
-                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300" aria-label="Visit us on Instagram">
                     <i class="fab fa-instagram text-xl"></i>
                 </a>
-                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300" aria-label="Follow us on X (Twitter)">
                     <i class="fab fa-twitter text-xl"></i>
                 </a>
             </div>
@@ -1043,7 +1078,8 @@
         // Intersection Observer for fade-in animations
         const fadeSections = document.querySelectorAll('.fade-in-section');
         const serviceCards = document.querySelectorAll('.service-card');
-        const contactCards = document.querySelectorAll('.contact-card'); // Select all contact cards for fade-in
+        const contactCards = document.querySelectorAll('.contact-card');
+        const sectionHeaders = document.querySelectorAll('.section-header'); // Select all section headers
 
         const observerOptions = {
             root: null,
@@ -1070,23 +1106,40 @@
             serviceCardObserver.observe(card);
         });
 
-        // Observe contact cards for fade-in
         const contactCardObserver = new IntersectionObserver(observerCallback, observerOptions);
         contactCards.forEach(card => {
             contactCardObserver.observe(card);
         });
 
-        // Carousel animation control
-        const logoItems = document.querySelectorAll('.logo-item');
+        // Observe section headers for underline animation
+        const headerObserver = new IntersectionObserver(observerCallback, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the header is visible
+        });
+        sectionHeaders.forEach(header => {
+            headerObserver.observe(header);
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { // Add 'scrolled' class after scrolling 50px
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Carousel animation control (pause on hover)
+        const logoCarousels = document.querySelectorAll('.logo-carousel-container .flex');
         
-        logoItems.forEach(item => {
-            // Add click event to pause animation for this item only
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Toggle paused state for this item
-                item.classList.toggle('paused');
+        logoCarousels.forEach(carousel => {
+            carousel.addEventListener('mouseenter', () => {
+                carousel.style.animationPlayState = 'paused';
+            });
+            carousel.addEventListener('mouseleave', () => {
+                carousel.style.animationPlayState = 'running';
             });
         });
 
@@ -1119,22 +1172,11 @@
             });
         });
         
-        // Add hover effect to cards
-        const cards = document.querySelectorAll('.service-card, .contact-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
-        });
-        
-        // Hero text animation
+        // Hero text animation (adjusted interval)
         const heroHeading = document.getElementById('hero-heading');
         setInterval(() => {
             heroHeading.classList.toggle('text-shine');
-        }, 2000);
+        }, 3000); // Changed to 3 seconds for a more subtle effect
     </script>
 </body>
 </html>
