@@ -236,7 +236,7 @@
                 padding: 1rem; /* Adjusted padding */
             }
             .logo-item img {
-                height: 6rem; /* Adjusted height for mobile */
+                height: 10rem; /* Increased height for better visibility on mobile */
                 width: auto;
                 max-width: 100%;
             }
@@ -337,6 +337,45 @@
             animation: floating 4s ease-in-out infinite; /* Slower and smoother */
             opacity: 0.15; /* More subtle */
         }
+
+        /* Internship Domain Dropdown */
+        #internship-domain-dropdown {
+            position: absolute;
+            top: 100%; /* Position below the header */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(24, 119, 242, 0.95); /* Match header glassmorphism */
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 1rem 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            z-index: 40; /* Below header, above content */
+            min-width: 250px;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        #internship-domain-dropdown.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        #internship-domain-dropdown a {
+            color: var(--color-white);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        #internship-domain-dropdown a:hover {
+            background-color: var(--color-dark-blue);
+            color: var(--color-white);
+        }
     </style>
 </head>
 <body>
@@ -353,7 +392,7 @@
             <!-- Desktop Navigation -->
             <ul class="hidden md:flex space-x-8" role="menubar">
                 <li role="none"><a href="#about" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">About</a></li>
-                <li role="none"><a href="#services" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Internships</a></li>
+                <li role="none"><button id="internships-nav-link" class="text-white hover:text-light-blue transition-colors duration-300 font-medium focus:outline-none" aria-expanded="false" aria-controls="internship-domain-dropdown" role="menuitem">Internships <i class="fas fa-chevron-down text-xs ml-1"></i></button></li>
                 <li role="none"><a href="#why-us" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Why Us</a></li>
                 <li role="none"><a href="#achievements" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Achievements</a></li>
                 <li role="none"><a href="#contact" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Contact</a></li>
@@ -367,11 +406,31 @@
             </div>
         </nav>
 
+        <!-- Internship Domain Dropdown (Desktop) -->
+        <div id="internship-domain-dropdown" class="hidden md:flex flex-col">
+            <a href="#cs-internships" class="domain-link">Computer Science</a>
+            <a href="#ece-internships" class="domain-link">Electronics & Communication</a>
+            <a href="#civil-internships" class="domain-link">Civil Engineering</a>
+            <a href="#mechanical-internships" class="domain-link">Mechanical Engineering</a>
+            <a href="#electrical-internships" class="domain-link">Electrical & Electronics Engineering</a>
+            <a href="#automobile-internships" class="domain-link">Automobile Engineering</a>
+        </div>
+
         <!-- Mobile Navigation Menu (Hidden by default) -->
         <div id="mobile-menu" class="hidden md:hidden bg-dark-blue py-4 border-t border-primary-blue border-opacity-30">
             <ul class="flex flex-col items-center space-y-4" role="menubar">
                 <li role="none"><a href="#about" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">About</a></li>
-                <li role="none"><a href="#services" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Internships</a></li>
+                <li role="none">
+                    <button id="mobile-internships-nav-link" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2 focus:outline-none" aria-expanded="false" aria-controls="mobile-internship-domain-list" role="menuitem">Internships <i class="fas fa-chevron-down text-xs ml-1"></i></button>
+                    <ul id="mobile-internship-domain-list" class="hidden flex-col items-center space-y-2 mt-2">
+                        <li><a href="#cs-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Computer Science</a></li>
+                        <li><a href="#ece-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Electronics & Communication</a></li>
+                        <li><a href="#civil-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Civil Engineering</a></li>
+                        <li><a href="#mechanical-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Mechanical Engineering</a></li>
+                        <li><a href="#electrical-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Electrical & Electronics Engineering</a></li>
+                        <li><a href="#automobile-internships" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-1 domain-link">Automobile Engineering</a></li>
+                    </ul>
+                </li>
                 <li role="none"><a href="#why-us" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Why Us</a></li>
                 <li role="none"><a href="#achievements" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Achievements</a></li>
                 <li role="none"><a href="#contact" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Contact</a></li>
@@ -392,7 +451,7 @@
                 <p class="text-lg sm:text-xl md:text-2xl font-light mb-10 opacity-90 max-w-3xl mx-auto">
                     We are offering internships for students pursuing Diplomas, BE, and BSc degrees in Computer Science, with opportunities for future employment.
                 </p>
-                <a href="#services" class="inline-block bg-white text-primary-blue font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out apply-button pulse" aria-label="Explore Our Services">
+                <a href="#cs-internships" class="inline-block bg-white text-primary-blue font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out apply-button pulse" aria-label="Explore Our Services">
                     Explore Our Internships
                 </a>
             </div>
@@ -428,15 +487,43 @@
             </div>
         </section>
 
-        <!-- Available Internships Section -->
+        <!-- Main Internships Section (Overview) -->
         <section id="services" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="services-heading">
             <div class="container mx-auto px-4">
                 <h2 id="services-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">Available Internships</h2>
+                <p class="text-center text-lg max-w-2xl mx-auto mb-12 text-gray-700">
+                    Explore our diverse range of internship opportunities across various engineering disciplines. Click on a discipline below to see the specific programs offered.
+                </p>
 
-                <!-- Computer Science Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                    <a href="#cs-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Computer Science</h3>
+                    </a>
+                    <a href="#ece-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Electronics & Communication</h3>
+                    </a>
+                    <a href="#civil-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Civil Engineering</h3>
+                    </a>
+                    <a href="#mechanical-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Mechanical Engineering</h3>
+                    </a>
+                    <a href="#electrical-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Electrical & Electronics Engineering</h3>
+                    </a>
+                    <a href="#automobile-internships" class="bg-primary-blue text-white p-6 rounded-lg shadow-md text-center hover:bg-dark-blue transition-colors duration-300 w-full max-w-xs transform hover:scale-105 apply-button">
+                        <h3 class="text-2xl font-semibold">Automobile Engineering</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Computer Science Internships Section -->
+        <section id="cs-internships" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="cs-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Computer Science</h3>
+                    <h3 id="cs-heading" class="text-3xl font-semibold relative z-10">Computer Science Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Data Analysis -->
@@ -530,11 +617,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Electronics & Communication Section -->
+        <!-- Electronics & Communication Internships Section -->
+        <section id="ece-internships" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="ece-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Electronics & Communication</h3>
+                    <h3 id="ece-heading" class="text-3xl font-semibold relative z-10">Electronics & Communication Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Drone Technologies -->
@@ -598,11 +689,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Civil Engg Section -->
+        <!-- Civil Engineering Internships Section -->
+        <section id="civil-internships" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="civil-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Civil Engineering</h3>
+                    <h3 id="civil-heading" class="text-3xl font-semibold relative z-10">Civil Engineering Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Solid Waste Management -->
@@ -636,11 +731,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Mechanical Engg Section -->
+        <!-- Mechanical Engineering Internships Section -->
+        <section id="mechanical-internships" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="mechanical-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Mechanical Engineering</h3>
+                    <h3 id="mechanical-heading" class="text-3xl font-semibold relative z-10">Mechanical Engineering Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Heating and Robotics -->
@@ -704,11 +803,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Electrical and Electronics Engineering Section -->
+        <!-- Electrical and Electronics Engineering Internships Section -->
+        <section id="electrical-internships" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="electrical-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Electrical and Electronics Engineering</h3>
+                    <h3 id="electrical-heading" class="text-3xl font-semibold relative z-10">Electrical & Electronics Engineering Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Industrial Automation -->
@@ -772,11 +875,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Automobile Section -->
+        <!-- Automobile Engineering Internships Section -->
+        <section id="automobile-internships" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="automobile-heading">
+            <div class="container mx-auto px-4">
                 <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
-                    <h3 class="text-3xl font-semibold relative z-10">Automobile Engineering</h3>
+                    <h3 id="automobile-heading" class="text-3xl font-semibold relative z-10">Automobile Engineering Internships</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Farm Machinery and Equipment -->
@@ -1075,6 +1182,67 @@
             });
         });
 
+        // Internship Domain Dropdown (Desktop)
+        const internshipsNavLink = document.getElementById('internships-nav-link');
+        const internshipDomainDropdown = document.getElementById('internship-domain-dropdown');
+
+        if (internshipsNavLink && internshipDomainDropdown) {
+            internshipsNavLink.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent click from bubbling to document
+                internshipDomainDropdown.classList.toggle('show');
+                internshipsNavLink.setAttribute('aria-expanded', internshipDomainDropdown.classList.contains('show'));
+            });
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', (event) => {
+                if (!internshipDomainDropdown.contains(event.target) && !internshipsNavLink.contains(event.target)) {
+                    internshipDomainDropdown.classList.remove('show');
+                    internshipsNavLink.setAttribute('aria-expanded', false);
+                }
+            });
+
+            // Handle clicks on domain links within the dropdown
+            document.querySelectorAll('#internship-domain-dropdown .domain-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                    internshipDomainDropdown.classList.remove('show'); // Close dropdown after selection
+                    internshipsNavLink.setAttribute('aria-expanded', false);
+                    if (!mobileMenu.classList.contains('hidden')) { // Also close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        // Mobile Internship Domain List Toggle
+        const mobileInternshipsNavLink = document.getElementById('mobile-internships-nav-link');
+        const mobileInternshipDomainList = document.getElementById('mobile-internship-domain-list');
+
+        if (mobileInternshipsNavLink && mobileInternshipDomainList) {
+            mobileInternshipsNavLink.addEventListener('click', (event) => {
+                event.stopPropagation();
+                mobileInternshipDomainList.classList.toggle('hidden');
+                mobileInternshipsNavLink.setAttribute('aria-expanded', !mobileInternshipDomainList.classList.contains('hidden'));
+            });
+
+            // Handle clicks on domain links within the mobile list
+            document.querySelectorAll('#mobile-internship-domain-list .domain-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                    mobileInternshipDomainList.classList.add('hidden'); // Close list after selection
+                    mobileInternshipsNavLink.setAttribute('aria-expanded', false);
+                    if (!mobileMenu.classList.contains('hidden')) { // Close main mobile menu
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+
         // Intersection Observer for fade-in animations
         const fadeSections = document.querySelectorAll('.fade-in-section');
         const serviceCards = document.querySelectorAll('.service-card');
@@ -1143,8 +1311,8 @@
             });
         });
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scroll for navigation links (general, excluding the new domain links handled above)
+        document.querySelectorAll('a[href^="#"]:not(.domain-link)').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
 
