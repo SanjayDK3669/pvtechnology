@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PV Technology | Internship Opportunities</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- LottieFiles CDN for animations -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        /* Custom Tailwind Configuration */
+        :root {
+            /* Light Mode Colors (default) */
+            --color-primary-blue: #1877F2;
+            --color-dark-blue: #166FE5;
+            --color-light-blue: #42A5F5;
+            --color-white: #FFFFFF;
+            --color-light-gray: #F8F9FA;
+            --color-dark-gray: #1C1E21;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-dark-gray);
+            background-color: var(--color-light-gray);
+            background-image: radial-gradient(rgba(24, 119, 242, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Custom Colors for Tailwind */
+        .bg-primary-blue { background-color: var(--color-primary-blue); }
+        .bg-dark-blue { background-color: var(--color-dark-blue); }
+        .bg-light-blue { background-color: var(--color-light-blue); }
+        .text-primary-blue { color: var(--color-primary-blue); }
+        .text-dark-gray { color: var(--color-dark-gray); }
+
+        /* Hero Section Gradient Background */
+        .hero-gradient-bg {
+            background: linear-gradient(135deg, var(--color-primary-blue), var(--color-light-blue));
+        }
+
+        /* Glassmorphism Effect for Header and now Footer */
+        .glassmorphism {
+            backdrop-filter: blur(10px);
+            background-color: rgba(24, 119, 242, 0.7); /* Meta Blue with opacity */
+        }
+
+        /* Client Logo Carousel Animations */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scroll-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .animate-scroll-left {
+            animation: scroll-left 40s linear infinite;
+        }
+
+        .animate-scroll-right {
+            animation: scroll-right 40s linear infinite;
+        }
+
+        .logo-item.paused {
+            animation-play-state: paused;
+        }
+
+        .logo-item img {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* Fade-in and Staggered Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card-wrapper,
+        .contact-card-wrapper { /* Added for contact cards */
+            height: 100%; /* Ensure wrappers fill grid cell height */
+        }
+
+        .service-card,
+        .contact-card { /* Unified styling for cards */
+            background-color: var(--color-white);
+            border-color: rgba(66, 165, 245, 0.3); /* light-blue with opacity */
+            color: var(--color-dark-gray); /* Ensure text color adapts */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            height: 100%; /* Make card fill its wrapper */
+            display: flex; /* Use flexbox for content alignment */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: space-between; /* Distribute space between items */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card.is-visible,
+        .contact-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover,
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(24, 119, 242, 0.15);
+        }
+
+        /* Staggered delay for service cards - adjust as needed for new cards */
+        .service-card-wrapper:nth-child(1) .service-card { transition-delay: 0.1s; }
+        .service-card-wrapper:nth-child(2) .service-card { transition-delay: 0.2s; }
+        .service-card-wrapper:nth-child(3) .service-card { transition-delay: 0.3s; }
+        .service-card-wrapper:nth-child(4) .service-card { transition-delay: 0.4s; }
+        .service-card-wrapper:nth-child(5) .service-card { transition-delay: 0.5s; }
+        .service-card-wrapper:nth-child(6) .service-card { transition-delay: 0.6s; }
+        .service-card-wrapper:nth-child(7) .service-card { transition-delay: 0.7s; }
+        .service-card-wrapper:nth-child(8) .service-card { transition-delay: 0.8s; }
+        .service-card-wrapper:nth-child(9) .service-card { transition-delay: 0.9s; }
+        .service-card-wrapper:nth-child(10) .service-card { transition-delay: 1.0s; }
+        .service-card-wrapper:nth-child(11) .service-card { transition-delay: 1.1s; }
+        .service-card-wrapper:nth-child(12) .service-card { transition-delay: 1.2s; }
+        .service-card-wrapper:nth-child(13) .service-card { transition-delay: 1.3s; }
+        .service-card-wrapper:nth-child(14) .service-card { transition-delay: 1.4s; }
+        .service-card-wrapper:nth-child(15) .service-card { transition-delay: 1.5s; }
+        .service-card-wrapper:nth-child(16) .service-card { transition-delay: 1.6s; }
+
+        /* Typography adjustments */
+        p, .text-md {
+            font-size: 18px; /* Increased paragraph font size */
+            line-height: 1.7; /* Improved line height */
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-primary-blue);
+            color: var(--color-white);
+            padding: 12px 15px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            z-index: 1000;
+        }
+
+        #back-to-top:hover {
+            background-color: var(--color-dark-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile specific adjustments for footer */
+        @media (max-width: 767px) {
+            footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            footer nav ul {
+                flex-direction: column;
+                /* space-y-2; This is a Tailwind class, not CSS property */
+            }
+            footer nav ul li {
+                margin-bottom: 8px; /* Add some space between vertical links */
+            }
+            
+            .hero-gradient-bg h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-gradient-bg h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Mobile specific adjustments for logo carousel images */
+        @media (max-width: 767px) {
+            .logo-item {
+                flex-shrink: 0; /* Prevent items from shrinking too much */
+                width: 50%; /* Make each logo item take up half the screen width */
+                padding: 1.5rem; /* Add more padding for touch targets */
+            }
+            .logo-item img {
+                height: 10rem; /* Increased height for better visibility on mobile */
+                width: auto; /* Allow width to adjust based on height to maintain aspect ratio */
+                max-width: 100%; /* Ensure image doesn't overflow its container */
+            }
+            /* Adjust animation speed for potentially fewer visible items at once */
+            .animate-scroll-left, .animate-scroll-right {
+                animation-duration: 25s; /* Slightly faster for less content */
+            }
+        }
+        
+        /* Section headers */
+        .section-header {
+            position: relative;
+            display: block;
+            margin-bottom:0 auto 3rem auto;
+            text-align: center;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-light-blue));
+            border-radius: 2px;
+        }
+        
+        /* Animation for apply button */
+        .apply-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .apply-button:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(25deg);
+            transition: all 0.5s;
+        }
+        
+        .apply-button:hover:after {
+            left: 120%;
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Hero text animation */
+        @keyframes textShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .text-shine {
+            background: linear-gradient(90deg, #FFFFFF, #42A5F5, #FFFFFF);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 2s linear infinite;
+        }
+        
+        /* Floating animation */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header/Navigation -->
+    <header id="header" class="glassmorphism fixed top-0 w-full z-50 shadow-lg" role="banner">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center" aria-label="Main Navigation">
+            <!-- Company Logo -->
+            <a href="#" class="text-white text-2xl font-extrabold tracking-wide flex items-center" aria-label="PV Technology Home">
+                <!-- Replaced local image with placeholder for better preview -->
+                <img src="images/pvtech_logo.jpg" alt="PV Technology Logo" class="h-10 w-auto mr-2">
+                <span class="hidden sm:inline-block">PV Technology</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex space-x-8" role="menubar">
+                <li role="none"><a href="#about" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">About</a></li>
+                <li role="none"><a href="#services" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Internships</a></li>
+                <li role="none"><a href="#why-us" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Why Us</a></li>
+                <li role="none"><a href="#achievements" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Achievements</a></li>
+                <li role="none"><a href="#contact" class="text-white hover:text-light-blue transition-colors duration-300 font-medium" role="menuitem">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger Menu -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile navigation menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-blue py-4">
+            <ul class="flex flex-col items-center space-y-4" role="menubar">
+                <li role="none"><a href="#about" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">About</a></li>
+                <li role="none"><a href="#services" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Internships</a></li>
+                <li role="none"><a href="#why-us" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Why Us</a></li>
+                <li role="none"><a href="#achievements" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Achievements</a></li>
+                <li role="none"><a href="#contact" class="text-white hover:text-light-blue transition-colors duration-300 font-medium block w-full text-center py-2" role="menuitem">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-gradient-bg min-h-screen flex items-center justify-center text-center text-white p-4 relative" role="region" aria-labelledby="hero-heading">
+            <div class="max-w-4xl mx-auto fade-in-section relative z-10">
+                <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 md:p-12 inline-block mb-8">
+                    <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-2 text-shine">PV Technology</h1>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                        Inspire. Innovate. Integrate.
+                    </h2>
+                </div>
+                <p class="text-lg sm:text-xl md:text-2xl font-light mb-10 opacity-90 max-w-3xl mx-auto">
+                    We are offering internships for students pursuing Diplomas, BE, and BSc degrees in Computer Science, with opportunities for future employment.
+                </p>
+                <a href="#services" class="inline-block bg-white text-primary-blue font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out apply-button pulse" aria-label="Explore Our Services">
+                    Explore Our Internships
+                </a>
+            </div>
+            
+            <!-- Floating elements -->
+            <div class="floating absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-white bg-opacity-20"></div>
+            <div class="floating absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-white bg-opacity-20" style="animation-delay: 0.5s;"></div>
+            <div class="floating absolute bottom-1/4 left-1/3 w-20 h-20 rounded-full bg-white bg-opacity-20" style="animation-delay: 1s;"></div>
+            
+            <!-- Lottie Animation Placeholder -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tijg9q9v.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="about-heading">
+            <div class="container mx-auto px-4">
+                <h2 id="about-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">About PV Technology</h2>
+                <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-primary-blue border-opacity-20 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary-blue bg-opacity-10 rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-light-blue bg-opacity-10 rounded-full"></div>
+                    
+                    <p class="text-lg leading-relaxed mb-6 text-dark-gray relative z-10">
+                        PV Technology, offers hands-on internships bridging academic learning and industry practice. Specializing in Computer Science, ECE, Civil, Mechanical, Electrical, and Automobile Engineering, the company provides projects in Cloud Computing, DevOps, AI/ML, Cybersecurity, IIoT, Robotics, and EV technologies. Interns work under expert mentors—software engineers, data scientists, and domain specialists—throughout project lifecycles from requirements through deployment. 
+                    </p>
+                    <p class="text-lg leading-relaxed text-dark-gray relative z-10">
+                        Interactive workshops and animated tutorials supplement real-world deliverables such as cloud-deployed applications and automated pipelines, enabling interns to build market-ready portfolios. Tailored to Diploma, BE, and BSc students, PV Technology’s collaborative, client-focused approach equips participants with the skills and experience for seamless career transitions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Internships Section -->
+        <section id="services" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="services-heading">
+            <div class="container mx-auto px-4">
+                <h2 id="services-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">Available Internships</h2>
+
+                <!-- Computer Science Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Computer Science</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Data Analysis -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-chart-bar"></i> <!-- Icon for Data Analysis -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Data Analysis</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Learn to collect, process, and perform statistical analysis on large datasets.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Data Analysis Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Devops -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-cogs"></i> <!-- Icon for DevOps -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">DevOps</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Streamline software development and operations for faster, more reliable deployments.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for DevOps Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Cloud Computing -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-cloud"></i> <!-- Icon for Cloud Computing -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Cloud Computing</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Learn to deploy and manage applications on leading cloud platforms like AWS, Azure, and GCP.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Cloud Computing Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Full Stack Development -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-laptop-code"></i> <!-- Icon for Full Stack Development -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Full Stack Development</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Master both front-end and back-end technologies to build complete web applications.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Full Stack Development Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Cyber Security -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-shield-alt"></i> <!-- Icon for Cyber Security -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Cyber Security</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Protect digital systems and data from cyber threats, ensuring robust security.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Cyber Security Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Artificial Intelligence and Machine Learning -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-brain"></i> <!-- Icon for AI/ML -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Artificial Intelligence & Machine Learning</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Develop intelligent systems and algorithms for data analysis and predictive modeling.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for AI/ML Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electronics & Communication Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Electronics & Communication</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Drone Technologies -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-plane-departure"></i> <!-- Icon for Drone Technologies -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Drone Technologies</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Explore the design, operation, and applications of unmanned aerial vehicles.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Drone Technologies Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Industrial Internet of Things (IIoT) -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-industry"></i> <!-- Icon for IIoT -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Industrial Internet of Things (IIoT)</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Connect and manage industrial devices for enhanced automation and data collection.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for IIoT Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Automation and Robotics -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-robot"></i> <!-- Icon for Automation and Robotics -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Automation and Robotics</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Design and implement automated systems and robotic solutions for various industries.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- E-Mobility -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-car-battery"></i> <!-- Icon for E-Mobility -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">E-Mobility</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Focus on electric vehicle technologies, charging infrastructure, and sustainable transport.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Civil Engg Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Civil Engineering</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Solid Waste Management -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-dumpster"></i> <!-- Icon for Solid Waste Management -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Solid Waste Management</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Learn sustainable practices for waste collection, processing, and disposal.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Solid Waste Management Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Wastewater Management -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-water"></i> <!-- Icon for Wastewater Management -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Wastewater Management</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Study treatment processes and systems for effective wastewater disposal and reuse.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Wastewater Management Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mechanical Engg Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Mechanical Engineering</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Heating and Robotics -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-robot"></i> <!-- Icon for Heating and Robotics -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Heating and Robotics</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Explore the integration of heating systems with robotic applications.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Heating and Robotics Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Advance Ventilation and Air Conditioning (HVAC) -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-fan"></i> <!-- Icon for HVAC -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Advance Ventilation and Air Conditioning (HVAC)</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Delve into advanced systems for heating, ventilation, and air conditioning.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for HVAC Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Automation and Robotics -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-robot"></i> <!-- Icon for Automation and Robotics -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Automation and Robotics</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Gain expertise in designing, building, and maintaining automated systems and robots.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- E-Mobility -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-car-battery"></i> <!-- Icon for E-Mobility -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">E-Mobility</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Delve into the mechanics and systems of electric vehicles and their infrastructure.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for E-Mobility Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electrical and Electronics Engineering Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Electrical and Electronics Engineering</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Industrial Automation -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-industry"></i> <!-- Icon for Industrial Automation -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Industrial Automation</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Design and implement control systems for industrial processes.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Industrial Automation Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Power Engg -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-bolt"></i> <!-- Icon for Power Engg -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Power Engineering</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Focus on the generation, transmission, and distribution of electrical power.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Power Engineering Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Renewable Energy -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-solar-panel"></i> <!-- Icon for Renewable Energy -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Renewable Energy</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Explore sustainable energy sources like solar, wind, and hydro power.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Renewable Energy Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Electric Utility Engg -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-charging-station"></i> <!-- Icon for Electric Utility Engg -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Electric Utility Engineering</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Learn about the infrastructure and operations of electric power systems.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Electric Utility Engineering Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Automobile Section -->
+                <div class="bg-primary-blue text-white p-4 rounded-lg shadow-md mb-8 mt-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-blue to-light-blue opacity-20"></div>
+                    <h3 class="text-3xl font-semibold relative z-10">Automobile Engineering</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Farm Machinery and Equipment -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-tractor"></i> <!-- Icon for Farm Machinery -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Farm Machinery and Equipment</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Study the design, operation, and maintenance of agricultural machinery.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Farm Machinery Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Construction and Earthmoving Equipment -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-hard-hat"></i> <!-- Icon for Construction Equipment -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Construction and Earthmoving Equipment</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Learn about heavy machinery used in construction and earthmoving.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Construction Equipment Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Automation and Robotics (Automobile) -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-robot"></i> <!-- Icon for Automation and Robotics -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Automation and Robotics</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Focus on automated systems and robotics within the automotive industry.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Automation and Robotics Internship">Apply Now</a>
+                        </div>
+                    </div>
+                    <!-- Electric and Hybrid Vehicle Technology -->
+                    <div class="service-card-wrapper">
+                        <div class="service-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div>
+                                <div class="text-primary-blue text-5xl mb-6">
+                                    <i class="fas fa-car-battery"></i> <!-- Icon for Electric and Hybrid Vehicle Technology -->
+                                </div>
+                                <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Electric and Hybrid Vehicle Technology</h3>
+                                <p class="text-md leading-relaxed text-gray-700">
+                                    Explore the design, battery systems, and infrastructure of electric and hybrid vehicles.
+                                </p>
+                            </div>
+                            <a href="https://forms.gle/bU46GroqTNrRs8cx9" target="_blank" class="mt-6 inline-block bg-primary-blue text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-dark-blue transition-colors duration-300 apply-button" aria-label="Apply for Electric and Hybrid Vehicle Technology Internship">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us/Trust Section - Re-added -->
+        <section id="why-us" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="trust-heading">
+            <div class="container mx-auto px-4">
+                <h2 id="trust-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">Trusted by Industry Leaders</h2>
+                <div class="logo-carousel-container overflow-hidden relative py-8">
+                    <!-- Row 1: Scrolling Left -->
+                    <div class="flex whitespace-nowrap animate-scroll-left">
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <!-- Replaced local images with placeholders for better preview -->
+                            <div class="logo-item p-4"><img src="images/Biogen.png" alt="Client Logo A" class="h-48 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Emmvee.jpg" alt="Client Logo B" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/tata_ele.png" alt="Client Logo C" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/TataPower-Logo.jpg" alt="Client Logo D" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/TVS.png" alt="Client Logo E" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/vintech.png" alt="Client Logo F" class="h-24 w-full object-contain max-h-full"></div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/Biogen.png" alt="Client Logo A" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Emmvee.jpg" alt="Client Logo B" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/tata_ele.png" alt="Client Logo C" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/TataPower-Logo.jpg" alt="Client Logo D" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/TVS.png" alt="Client Logo E" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/vintech.png" alt="Client Logo F" class="h-24 w-full object-contain max-h-full"></div>
+                        </div>
+                    </div>
+                    <!-- Row 2: Scrolling Right -->
+                    <div class="flex whitespace-nowrap mt-8 animate-scroll-right">
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/ABauto.png" alt="Client Logo G" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Lavit.avif" alt="Client Logo H" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/LMwind.png" alt="Client Logo I" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/maxwell.png" alt="Client Logo J" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/pazzo-log.png" alt="Client Logo K" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Wistron.png" alt="Client Logo L" class="h-24 w-full object-contain max-h-full"></div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/ABauto.png" alt="Client Logo G" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Lavit.avif" alt="Client Logo H" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/LMwind.png" alt="Client Logo I" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/maxwell.png" alt="Client Logo J" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/pazzo-log.png" alt="Client Logo K" class="h-24 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/Wistron.png" alt="Client Logo L" class="h-24 w-full object-contain max-h-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Achievements Section -->
+        <section id="achievements" class="py-20 bg-light-gray fade-in-section" role="region" aria-labelledby="achievements-heading">
+            <div class="container mx-auto px-4">
+                <h2 id="achievements-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">Our Achievements</h2>
+                <div class="logo-carousel-container overflow-hidden relative py-8">
+                    <!-- Row 1: Scrolling Left -->
+                    <div class="flex whitespace-nowrap animate-scroll-left">
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <!-- Replaced local images with placeholders for better preview -->
+                            <div class="logo-item p-4"><img src="images/picb8.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb9.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb10.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb11.jpeg" alt="Top Performer" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/pic12.jpeg" alt="Quality Award" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb13.jpeg" alt="Growth Leader" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb14.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb15.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb16.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
+                            
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/picb17.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb18.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb19.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup6.jpeg" alt="Top Performer" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb20.jpeg" alt="Quality Award" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb8.jpeg" alt="Growth Leader" class="h-80 w-full object-contain max-h-full"></div>
+                        </div>
+                    </div>
+                    <!-- Row 2: Scrolling Right -->
+                    <div class="flex whitespace-nowrap mt-8 animate-scroll-right">
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/picb3.jpeg" alt="Top Performer" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup9.jpeg" alt="Quality Award" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup8.jpeg" alt="Growth Leader" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb1.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb2.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="flex items-center justify-around w-full flex-shrink-0">
+                            <div class="logo-item p-4"><img src="images/picb5.jpeg" alt="Top Performer" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb6.jpeg" alt="Quality Award" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picb7.jpeg" alt="Growth Leader" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup1.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup3.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup5.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup3.jpeg" alt="Award 2023" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup4.jpeg" alt="Innovation Prize" class="h-80 w-full object-contain max-h-full"></div>
+                            <div class="logo-item p-4"><img src="images/picup7.jpeg" alt="Client Success" class="h-80 w-full object-contain max-h-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white fade-in-section" role="region" aria-labelledby="contact-heading">
+            <div class="container mx-auto px-4">
+                <h2 id="contact-heading" class="text-4xl font-bold text-center mb-12 text-dark-gray section-header">Get In Touch</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+                    <!-- Contact Card: Instagram -->
+                    <a href="https://www.instagram.com/pv__technology?igsh=MXhoMDN3cGx3OHZyOQ==" target="_blank" rel="noopener noreferrer" class="contact-card-wrapper" aria-label="Visit our Instagram profile">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fab fa-instagram" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Instagram</h3>
+                            <p class="text-lg text-gray-700">Follow us for updates and insights.</p>
+                        </div>
+                    </a>
+
+                    <!-- Contact Card: YouTube -->
+                    <a href="https://www.youtube.com/yourcompany" target="_blank" rel="noopener noreferrer" class="contact-card-wrapper" aria-label="Visit our YouTube channel">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fab fa-youtube" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">YouTube</h3>
+                            <p class="text-lg text-gray-700">Watch our videos and tutorials.</p>
+                        </div>
+                    </a>
+
+                    <!-- Contact Card: X (Twitter) -->
+                    <a href="https://x.com/PvTechnologys?t=e0MGrtQwayVg87KVPFSNSA&s=09" target="_blank" rel="noopener noreferrer" class="contact-card-wrapper" aria-label="Follow us on X (Twitter)">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">X (Twitter)</h3>
+                            <p class="text-lg text-gray-700">Get our latest news and announcements.</p>
+                        </div>
+                    </a>
+
+                    <!-- Contact Card: Call Us (Main) -->
+                    <div class="contact-card-wrapper">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Call Us</h3>
+                            <p class="text-lg text-gray-700 mb-2">General Inquiries: <a href="tel: +91 8088185183" class="text-primary-blue hover:underline">+91 8088185183</a></p>
+                            <p class="text-lg text-gray-700 mb-2">About Internship: <a href="tel:+91 7204431075" class="text-primary-blue hover:underline">+91 7204431075</a></p>
+                            <p class="text-lg text-gray-700">About Internship: <a href="tel:+91 8123470340" class="text-primary-blue hover:underline">+91 8123470340</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Card: Gmail -->
+                    <a href="mailto:pvtechnologys@gmail.com" class="contact-card-wrapper" aria-label="Send us an email">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Email Us</h3>
+                            <p class="text-lg text-gray-700">pvtechnologys@gmail.com</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Contact Card: Location -->
+                    <div class="contact-card-wrapper">
+                        <div class="contact-card rounded-2xl shadow-lg p-8 text-center transition-all duration-300 hover:shadow-2xl border">
+                            <div class="text-primary-blue text-5xl mb-6">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4 text-dark-gray">Visit Us</h3>
+                            <p class="text-lg text-gray-700">PV Technology Headquarters<br>Bangalore, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism text-white py-6 text-sm" role="contentinfo">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <!-- Replaced local image with placeholder for better preview -->
+                <img src="https://placehold.co/40x40/1877F2/FFFFFF?text=PV" alt="PV Technology Logo" class="h-10 w-auto inline-block mr-3">
+                <span class="text-xl font-bold">PV Technology</span>
+            </div>
+            
+            <div class="flex space-x-6 mb-4 md:mb-0">
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-light-blue transition-colors duration-300">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+            </div>
+            
+            <p class="text-white">&copy; 2025 PV Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Scroll back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('#header nav a'); // All navigation links
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const fadeSections = document.querySelectorAll('.fade-in-section');
+        const serviceCards = document.querySelectorAll('.service-card');
+        const contactCards = document.querySelectorAll('.contact-card'); // Select all contact cards for fade-in
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        };
+
+        const sectionObserver = new IntersectionObserver(observerCallback, observerOptions);
+        fadeSections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        const serviceCardObserver = new IntersectionObserver(observerCallback, observerOptions);
+        serviceCards.forEach(card => {
+            serviceCardObserver.observe(card);
+        });
+
+        // Observe contact cards for fade-in
+        const contactCardObserver = new IntersectionObserver(observerCallback, observerOptions);
+        contactCards.forEach(card => {
+            contactCardObserver.observe(card);
+        });
+
+        // Carousel animation control
+        const logoItems = document.querySelectorAll('.logo-item');
+        
+        logoItems.forEach(item => {
+            // Add click event to pause animation for this item only
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Toggle paused state for this item
+                item.classList.toggle('paused');
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back to Top Button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add hover effect to cards
+        const cards = document.querySelectorAll('.service-card, .contact-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Hero text animation
+        const heroHeading = document.getElementById('hero-heading');
+        setInterval(() => {
+            heroHeading.classList.toggle('text-shine');
+        }, 2000);
+    </script>
+</body>
+</html>
